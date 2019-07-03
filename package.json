@@ -1,0 +1,26 @@
+{
+  "name": "trailtoad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "8.8.1",
+    "npm": "5.0.3"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trailtoad/atxTrails.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trailtoad/atxTrails/issues"
+  },
+  "homepage": "https://github.com/trailtoad/atxTrails#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
