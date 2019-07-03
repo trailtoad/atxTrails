@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose')
+const connectDB = require('./config/db');
 //Gives access to Cookies
 const cookieSession = require('cookie-session');
 //Tells Passport.js to make use of cookies
@@ -12,10 +12,7 @@ require('./models/User');
 require('./services/passport');
 
 //Connects MongoDB to Express API - 1st Optional
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
-
-//Connect Database
-//connectDB();
+connectDB()
 
 //Express App used to register the route handler with.
 const app = express();
