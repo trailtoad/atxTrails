@@ -9,6 +9,11 @@ module.exports = app => {
         })
     );
 
+    app.get(
+        '/auth/facebook', 
+        passport.authenticate('facebook')
+    );
+
     //Route handler to handle if user visits /auth/google/callback
     app.get(
         '/auth/google/callback', 
@@ -19,11 +24,21 @@ module.exports = app => {
         }
     );
 
+    //Route handler to handle if user visits /auth/facebook/callback
+    app.get(
+        '/auth/facebook/callback', 
+        passport.authenticate('facebook'),
+        //Redirects after successfull User Authentication
+        (req, res) => {
+           res.redirect('/home');
+        }
+    );
+
     //Route handler for logging out
     app.get('/api/logout', (req,res) => {
         req.logout();
         //Redirects after logout back to landing
-        res.redirect('/logout');
+        res.redirect('/logout_success');
     });
     
     //GET Request route handler to get access to current user logging in.

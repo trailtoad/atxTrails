@@ -1,5 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const mongoose = require('mongoose');
 const keys = require('../config/keys');
 
@@ -18,7 +19,7 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-//Creates and registers a new instance of google strategy
+//Creates and registers a new instance of Google strategy
 passport.use(
     new GoogleStrategy(
         {
@@ -29,8 +30,9 @@ passport.use(
         },
         async (accessToken, refreshToken, profile, done) => {
             //Atempt to find users already in database to not add again
-            const existingUser = await User.findOne({ 
-                googleId: profile.id,
+            const existingUser = await User.findOne({
+                source: "Google",
+                profileId: profile.id,
                 name: profile.displayName,
                 email: profile.emails,
                 avatar: profile.photos
@@ -41,10 +43,48 @@ passport.use(
                 return done(null, existingUser);
             } 
             //Takes new mongoose model instance and saves to the database
-            const user = await new User({ 
-                googleId: profile.id,
+            const user = await new User({
+                source: "Google",
+                profileId: profile.id,
                 name: profile.displayName,
                 email: profile.emails,
+                avatar: profile.photos
+            }).save()
+            
+            done(null, user); 
+        }
+    )
+);
+
+//Creates and registers a new instance of Facebook strategy
+passport.use(
+    new FacebookStrategy(
+        {
+            clientID: keys.facebookAppID,
+            clientSecret: keys.facebookAppSecret,
+            callbackURL: "/auth/facebook/callback",
+            profileFields: ['id', 'displayName', 'photos', 'email'],
+            proxy: true
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            //Atempt to find users already in database to not add again
+            const existingUser = await User.findOne({
+                source: "Facebook",
+                profileId: profile.id,
+                name: profile.displayName,
+                avatar: profile.photos,
+            })
+
+            if (existingUser) {
+                //If we already have a record with the given ID
+                return done(null, existingUser);
+            }
+
+            //Takes new mongoose model instance and saves to the database
+            const user = await new User({
+                source: "Facebook",
+                profileId: profile.id,
+                name: profile.displayName,
                 avatar: profile.photos
             }).save()
             
