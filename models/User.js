@@ -5,8 +5,8 @@ const userSchema = new Schema({
     source: String,
     profileId: String,
     name: String,
-    email: Object,
-    avatar: Object,
+    email: Array,
+    avatar: Array,
     date: {
         type: Date, 
         default: Date.now

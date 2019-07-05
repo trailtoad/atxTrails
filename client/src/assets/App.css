@@ -1,0 +1,28 @@
+.Map {
+    height: 55vh;
+    max-height: 550px;
+    width: 100%;
+    display: block;
+    margin-top: .5%;
+}
+
+.LoginButtons {
+    display: flex;
+    flex-direction: column;
+}
+
+#icons {
+    margin-right: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#facebook {
+    background-color: #3b5998;
+    color: #fff;
+}
+
+#google {
+    background-color: #DB4437;
+    color: #fff;
+}
