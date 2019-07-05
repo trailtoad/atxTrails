@@ -11,7 +11,7 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
 
-//Connects MongoDB to Express API - 1st Optional
+//Connects MongoDB to Express API
 connectDB()
 
 //Express App used to register the route handler with.
@@ -36,7 +36,6 @@ app.use(passport.session());
 
 //Returns a function and immediately invokes the app object
 require('./routes/authRoutes')(app);
-
 
 //Configuration for Express to behave correctly in production environment
 if (process.env.NODE_ENV === 'production') {

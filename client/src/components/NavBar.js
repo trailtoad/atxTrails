@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
 //Side Drawer
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -15,6 +17,7 @@ import DirectionsBike from '@material-ui/icons/DirectionsBike'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -45,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     list: {
         width: 250,
     },
-    avatar: {
+    picture: {
         marginTop: 4,
         
     },
@@ -54,7 +57,10 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function NavBar() {
+const NavBar = user => {
+
+    console.log(user)
+
     const classes = useStyles();
     const [state, setState] = React.useState({
         left: false,
@@ -86,7 +92,7 @@ export default function NavBar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>
-                <AccountCircle className={classes.icon}/> Logout
+                <Button href='/api/logout'><AccountCircle className={classes.icon} /> Logout</Button>
             </MenuItem>
         </Menu>
     );
@@ -147,7 +153,7 @@ export default function NavBar() {
                     </Typography>
                     <div className={classes.grow} />
                     <div className={classes.section}>
-                        <Avatar alt="User Image" src="" className={classes.avatar} />
+                        <Avatar alt="User Image" src="" className={classes.picture} />
                         <IconButton
                             edge="end"
                             aria-label="Account of current user"
@@ -165,3 +171,15 @@ export default function NavBar() {
         </div>      
     );
 }
+
+NavBar.prototypes = {
+    auth: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = state => {
+    return {
+        user: state.auth,
+    };
+};
+
+export default connect(mapStateToProps)(NavBar);

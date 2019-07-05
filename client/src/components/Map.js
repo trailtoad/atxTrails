@@ -4,7 +4,7 @@ import {
     withScriptjs,
     withGoogleMap,
     GoogleMap,
-    Marker,
+    //Marker,
     BicyclingLayer,
     TrafficLayer
     /* InfoWindow */

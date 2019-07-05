@@ -38,7 +38,7 @@ module.exports = app => {
     app.get('/api/logout', (req,res) => {
         req.logout();
         //Redirects after logout back to landing
-        res.redirect('/logout_success');
+        res.redirect('/login');
     });
     
     //GET Request route handler to get access to current user logging in.

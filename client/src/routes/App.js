@@ -1,5 +1,12 @@
 import React, { Component, Fragment } from 'react';
+//Browser Router - Brain of React-Router
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+//Gives components ability to call action creators
+import { connect } from 'react-redux';
+//Pulls out all action creators
+import * as actions from '../actions';
+
+//Styles
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import '../assets/App.css';
 
@@ -31,6 +38,10 @@ const theme = createMuiTheme({
 });
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  };
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
@@ -48,4 +59,4 @@ class App extends Component {
   } 
 }
 
-export default App;
+export default connect(null, actions)(App);
